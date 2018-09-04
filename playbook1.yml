@@ -1,7 +1,7 @@
 ---
-- hosts : localhost
-  remote_user: pooja
+- hosts : all
+  
   tasks:
           - name: testing connection
             ping:
-            remote_user: pooja
+  

@@ -1,6 +1,6 @@
 ---
-- hosts : localhost
-  remote_user: pooja
+- hosts : all
+  
   vars:
       http_port: 80
   tasks:
@@ -13,8 +13,7 @@
                   state: present
           become: yes
           become_method: sudo
-          vars:
-                  ansible_sudo_pass: pooja
+  
         
         - name: ensure php is installed
           apt:
@@ -22,8 +21,7 @@
                     state: present
           become: yes
           become_method: sudo
-          vars:
-                  ansible_sudo_pass: pooja
+  
         
         - name: start the server
           service:
@@ -32,8 +30,8 @@
                         enabled: yes
           become: yes
           become_method: sudo
-          vars:
-                  ansible_sudo_pass: pooja
+   #       vars:
+    #              ansible_sudo_pass: pooja
         
         - name: start the php
           service:
@@ -42,14 +40,16 @@
                         enabled: yes
           become: yes
           become_method: sudo
-          vars:
-                  ansible_sudo_pass: pooja
+       #   vars:
+        #          ansible_sudo_pass: pooja
         
         - name: making directory
           file:
                         state: directory
                         path: /var/www/html
                         mode: 0777
+          become: yes
+          become_method: sudo
 
         - name: deploying web page
           copy:
@@ -61,6 +61,6 @@
          - name: restart apache2
            service:
                    name: apache2
-                   state: restared
+                   state: restarted
           
 
